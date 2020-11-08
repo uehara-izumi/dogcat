@@ -10,6 +10,7 @@ from keras.models import load_model
 from keras.preprocessing import image
 
 app = Flask(__name__)
+app.debug = False
 
 ACCESS_TOKEN = "ZWqC9dOrT8Rpi8YHLYkZiPT7IMB0TTiOlhgEM3qeQrEMwInbLhRAqo3wqbesJea5KIuUoa/9+TdFcxMeNo/g0VyiOKEm7pgq41jeYVy+gsqX8aVNyvkkJoP0pqiAhStUvWGK1MfATE6lzHhsIvIZDAdB04t89/1O/w1cDnyilFU="
 SECRET = "818b6f3efb27d959f5e315aaa7886864"
@@ -59,5 +60,8 @@ def handle_image_message(event):
         #line_bot_api.reply_message(event.reply_token,ImageSendMessage(original_content_url=FQDN+"/static/"+event.message.id+".jpg",preview_image_url=FQDN+"/static/"+event.message.id+".jpg"))
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=text))
 
+#if __name__ == "__main__":
+#   app.run()
 if __name__ == "__main__":
-    app.run()
+    port = int(os.getenv("PORT"))
+    app.run(host="0.0.0.0", port=port)
